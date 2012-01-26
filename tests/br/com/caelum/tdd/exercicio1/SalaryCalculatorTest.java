@@ -3,15 +3,10 @@ package br.com.caelum.tdd.exercicio1;
 import static br.com.caelum.tdd.exercicio1.Position.DBA;
 import static br.com.caelum.tdd.exercicio1.Position.DEVELOPER;
 import static br.com.caelum.tdd.exercicio1.Position.TESTER;
-
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import br.com.caelum.tdd.exercicio1.Employee;
-import br.com.caelum.tdd.exercicio1.Position;
-import br.com.caelum.tdd.exercicio1.SalaryCalculator;
 
 public class SalaryCalculatorTest {
 
@@ -77,7 +72,53 @@ public class SalaryCalculatorTest {
 		assertEquals(1000.0 * 0.85, salario, 0.000001);
 	}
 	
+	@Test
+	public void deveDeduzir15PorCentoSeGerenteGanhaMenosDe0() {
+		Employee gerente = umFuncionario(Position.GERENTEPROJETOS, comSalarioBase(0.0));
 		
+		double salario = calculator.calculate(gerente);
+		
+		assertEquals(0.0 * 0.85, salario, 0.000001);
+	}
+	
+	@Test
+	public void deveDeduzir15PorCentoSeGerenteGanhaMenosDe5000() {
+		Employee gerente = umFuncionario(Position.GERENTEPROJETOS, comSalarioBase(4999.0));
+		
+		double salario = calculator.calculate(gerente);
+		
+		assertEquals(4999.0 * 0.85, salario, 0.000001);
+	}
+		
+	@Test
+	public void deveDeduzir20PorCentoSeGerenteGanha5000() {
+		Employee gerente = umFuncionario(Position.GERENTEPROJETOS, comSalarioBase(5000.0));
+		
+		double salario = calculator.calculate(gerente);
+		
+		assertEquals(5000.0 * 0.80, salario, 0.000001);
+	}
+	
+
+	
+	@Test
+	public void deveDeduzir20PorCentoSeGerenteGanhaMais5001() {
+		Employee gerente = umFuncionario(Position.GERENTEPROJETOS, comSalarioBase(5001.0));
+		
+		double salario = calculator.calculate(gerente);
+		
+		assertEquals(5001.0 * 0.80, salario, 0.000001);
+	}
+	
+	@Test
+	public void deveDeduzir20PorCentoSeGerenteGanhaMais6000() {
+		Employee gerente = umFuncionario(Position.GERENTEPROJETOS, comSalarioBase(6000.0));
+		
+		double salario = calculator.calculate(gerente);
+		
+		assertEquals(6000.0 * 0.80, salario, 0.000001);
+	}
+	
 	private Employee umFuncionario(Position cargo, double salario) {
 		Employee funcionario = new Employee();
 		funcionario.setName("Martin Fowler");
