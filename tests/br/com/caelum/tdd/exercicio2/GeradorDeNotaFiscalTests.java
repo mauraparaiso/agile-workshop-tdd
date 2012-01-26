@@ -50,6 +50,8 @@ public class GeradorDeNotaFiscalTests {
 	}
 	
 	
+	
+	
 	@Test
 	public void devePersistirANotaFiscalGerada() {
 		Fatura fatura = new Fatura(1000, "cliente 1");
